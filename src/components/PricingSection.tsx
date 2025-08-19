@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, Leaf, Shield, Zap } from "lucide-react";
+import { CheckCircle, Leaf, Shield, Zap, CreditCard, Smartphone, Building } from "lucide-react";
+import TrustSeals from "./TrustSeals";
 
 const PricingSection = () => {
   const pricingOptions = [
@@ -120,6 +121,28 @@ const PricingSection = () => {
               <span>Em até 12x s/juros</span>
             </div>
           </div>
+          
+          {/* Payment Methods */}
+          <div className="mt-8 max-w-2xl mx-auto">
+            <p className="text-sm text-muted-foreground mb-4">Formas de pagamento aceitas:</p>
+            <div className="flex justify-center items-center gap-6 text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <CreditCard className="w-5 h-5" />
+                <span className="text-sm">Cartão de Crédito</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Building className="w-5 h-5" />
+                <span className="text-sm">Boleto</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Smartphone className="w-5 h-5" />
+                <span className="text-sm">PIX</span>
+              </div>
+            </div>
+          </div>
+          
+          {/* Trust Seals */}
+          <TrustSeals />
         </div>
       </div>
     </div>

@@ -9,14 +9,18 @@ import ComparisonSection from "@/components/ComparisonSection";
 import ScienceSection from "@/components/ScienceSection";
 import GuaranteeSection from "@/components/GuaranteeSection";
 import FAQSection from "@/components/FAQSection";
+import EmailPopup from "@/components/EmailPopup";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      <EmailPopup />
       
-      {/* Hero Section */}
-      <HeroSection />
+      {/* Hero Section - Add padding top for fixed header */}
+      <div className="pt-16">
+        <HeroSection />
+      </div>
       
       <main>
         {/* Product Section with Carousel */}
