@@ -1,12 +1,65 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import Header from "@/components/Header";
+import HeroSection from "@/components/HeroSection";
+import ProductCarousel from "@/components/ProductCarousel";
+import PricingSection from "@/components/PricingSection";
+import ProductDescription from "@/components/ProductDescription";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import WhyChooseSection from "@/components/WhyChooseSection";
+import ComparisonSection from "@/components/ComparisonSection";
+import ScienceSection from "@/components/ScienceSection";
+import GuaranteeSection from "@/components/GuaranteeSection";
+import FAQSection from "@/components/FAQSection";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Header />
+      
+      {/* Hero Section */}
+      <HeroSection />
+      
+      <main>
+        {/* Product Section with Carousel */}
+        <section id="produtos" className="py-16">
+          <div className="container mx-auto px-4">
+            <ProductCarousel />
+          </div>
+        </section>
+
+        {/* Pricing Section */}
+        <PricingSection />
+
+        {/* Product Description */}
+        <ProductDescription />
+
+        {/* Testimonials */}
+        <TestimonialsSection />
+
+        {/* Why Choose Section */}
+        <WhyChooseSection />
+
+        {/* Science Section */}
+        <ScienceSection />
+
+        {/* Comparison Section */}
+        <ComparisonSection />
+
+        {/* Guarantee Section */}
+        <GuaranteeSection />
+
+        {/* FAQ Section */}
+        <FAQSection />
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-foreground text-background py-8">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-sm">
+            © 2024 Vitta Femme. Todos os direitos reservados. 
+            Produto desenvolvido especialmente para o bem-estar feminino.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
