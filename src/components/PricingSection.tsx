@@ -3,6 +3,8 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, Leaf, Shield, Zap, CreditCard, Smartphone, Building } from "lucide-react";
 import TrustSeals from "./TrustSeals";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 const PricingSection = () => {
   const pricingOptions = [
@@ -34,6 +36,10 @@ const PricingSection = () => {
       isPopular: false
     }
   ];
+  const [selectedIndex, setSelectedIndex] = useState(() => {
+    const idx = pricingOptions.findIndex((o) => o.isPopular);
+    return idx >= 0 ? idx : 0;
+  });
 
   const features = [
     { icon: Leaf, text: "100% Vegano" },
@@ -61,11 +67,20 @@ const PricingSection = () => {
 
         <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
           {pricingOptions.map((option, index) => (
-            <Card key={index} className={`relative p-6 text-center border-2 transition-all duration-300 hover:shadow-elegant ${
-              option.isPopular 
-                ? "border-primary bg-gradient-hero text-primary-foreground shadow-glow scale-105" 
-                : "border-border hover:border-primary/30"
-            }`}>
+            <Card
+              key={index}
+              role="button"
+              tabIndex={0}
+              onClick={() => setSelectedIndex(index)}
+              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setSelectedIndex(index)}
+              className={`relative p-6 text-center border-2 transition-all duration-300 hover:shadow-elegant ${
+                index === selectedIndex ? "ring-2 ring-primary" : ""
+              } ${
+                option.isPopular
+                  ? "border-primary bg-gradient-hero text-primary-foreground shadow-glow scale-105"
+                  : "border-border hover:border-primary/30"
+              }`}
+            >
               {option.isPopular && (
                 <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-success text-success-foreground px-4 py-1">
                   MAIS POPULAR
@@ -104,8 +119,29 @@ const PricingSection = () => {
         </div>
 
         <div className="text-center">
-          <Button 
-            size="lg" 
+          <Button
+            size="lg"
+            onClick={async () => {
+              const selected = pricingOptions[selectedIndex];
+              try {
+                const { data, error } = await supabase.functions.invoke("create-payment", {
+                  body: {
+                    amount: Math.round(selected.price * 100),
+                    currency: "BRL",
+                    productName: `Vitta Femme - ${selected.quantity} Frasco${selected.quantity > 1 ? "s" : ""}`,
+                    successUrl: `${window.location.origin}/payment-success`,
+                    cancelUrl: `${window.location.origin}/payment-canceled`,
+                  },
+                });
+                if (error) throw error;
+                if (data?.url) {
+                  window.open(data.url, "_blank");
+                }
+              } catch (err) {
+                console.error("Erro ao criar checkout:", err);
+                alert("Não foi possível iniciar o pagamento. Tente novamente.");
+              }
+            }}
             className="bg-gradient-cta hover:scale-105 transition-all duration-300 text-lg font-bold px-12 py-4 rounded-full shadow-elegant hover:shadow-glow"
           >
             COMPRAR AGORA
