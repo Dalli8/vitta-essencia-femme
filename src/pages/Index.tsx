@@ -3,19 +3,25 @@ import HeroSection from "@/components/HeroSection";
 import ProductCarousel from "@/components/ProductCarousel";
 import PricingSection from "@/components/PricingSection";
 import ProductDescription from "@/components/ProductDescription";
-import TestimonialsSection from "@/components/TestimonialsSection";
+import ExpandedTestimonials from "@/components/ExpandedTestimonials";
 import WhyChooseSection from "@/components/WhyChooseSection";
 import ComparisonSection from "@/components/ComparisonSection";
 import ScienceSection from "@/components/ScienceSection";
 import GuaranteeSection from "@/components/GuaranteeSection";
 import FAQSection from "@/components/FAQSection";
 import EmailPopup from "@/components/EmailPopup";
+import ExitIntentPopup from "@/components/ExitIntentPopup";
+import LiveChat from "@/components/LiveChat";
+import Analytics from "@/components/Analytics";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Analytics />
       <Header />
       <EmailPopup />
+      <ExitIntentPopup />
+      <LiveChat />
       
       {/* Hero Section - Add padding top for fixed header */}
       <div className="pt-16">
@@ -37,7 +43,7 @@ const Index = () => {
         <ProductDescription />
 
         {/* Testimonials */}
-        <TestimonialsSection />
+        <ExpandedTestimonials />
 
         {/* Why Choose Section */}
         <WhyChooseSection />

@@ -3,8 +3,10 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, Leaf, Shield, Zap, CreditCard, Smartphone, Building } from "lucide-react";
 import TrustSeals from "./TrustSeals";
+import UrgencyIndicators from "./UrgencyIndicators";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { trackAddToCart } from "./Analytics";
 
 const PricingSection = () => {
   const pricingOptions = [
@@ -65,6 +67,11 @@ const PricingSection = () => {
           </div>
         </div>
 
+        {/* Urgency Indicators */}
+        <div className="max-w-md mx-auto mb-8">
+          <UrgencyIndicators />
+        </div>
+
         <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
           {pricingOptions.map((option, index) => (
             <Card
@@ -123,6 +130,10 @@ const PricingSection = () => {
             size="lg"
             onClick={async () => {
               const selected = pricingOptions[selectedIndex];
+              
+              // Track add to cart event
+              trackAddToCart(`Vitta Femme - ${selected.quantity} Frasco${selected.quantity > 1 ? "s" : ""}`, selected.price);
+              
               try {
                 const { data, error } = await supabase.functions.invoke("create-payment", {
                   body: {
